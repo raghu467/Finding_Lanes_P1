@@ -1,40 +1,49 @@
 # **Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
+In this project I have implmented a image processing pipeline to detect lanes on given mono-vision video captured from a vehicle.
+This algorithm detects the following types of lines on the road.
+1. Dotted Yellow
+2. Solid  Yellow 
+3. Dotted White 
+4. Solid white
 
-1. Describe the pipeline
+### The pipeline immplmented is divided into the following stages .
+## 1. RGB to gray scale conversion
+ During this stage the RGB image is converted into the Gray scaled image
+### input:
+<img src="https://github.com/raghu467/Finding_Lanes_P1/blob/master/test_images/whiteCarLaneSwitch.jpg" alt="input" width=432 height=288>
 
-2. Identify any shortcomings
+### Output:
+![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_gray1.png)
 
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
+## 2.Apply gaussian_blur
+ During this stage Gaussian blur is applied to the output of stage 1 using a kernel of size 7
+### Output:
+![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_gray_blur2.png)
 
 
-The Project
----
+## 3.Canny Edge Detection
+ During this stage Canny edge detection is applied on to the blurred gray image.
+ Threshold used for canny edge detection are 50 and 150
+### Output:
+![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_canny3.png)
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
+## 4.Applying ROI 
+ In this stage the region of interest is applied and the unwanted top portion of the image is clipped.
+### Output:
+![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_ROI4.png)
 
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://classroom.udacity.com/nanodegrees/nd013/parts/fbf77062-5703-404e-b60c-95b78b2f3f9e/modules/83ec35ee-1e02-48a5-bdb7-d244bd47c2dc/lessons/8c82408b-a217-4d09-b81d-1bda4c6380ef/concepts/4f1870e0-3849-43e4-b670-12e6f2d4b7a7) if you haven't already.
+## 5.Hough Transform
+ In this stage we find the hough transform for all the points on the lanes . The output of the hough transform are then 
+ super imposed on to the lines.
+### Output:
+![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_houg_lines5.png)
 
-**Step 2:** Open the code in a Jupyter Notebook
+## 6.Hough Transform
+ During this stage we Add the input RGB image with the output of stage 5 to get the redlines super imposed on the Actual lanes in the 
+ image.
+### Output:
+![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_Weighted6.png)
 
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out <A HREF="https://www.packtpub.com/books/content/basics-jupyter-notebook-and-python" target="_blank">Cyrille Rossant's Basics of Jupyter Notebook and Python</A> to get started.
 
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
 
-`> jupyter notebook`
-
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
-
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 

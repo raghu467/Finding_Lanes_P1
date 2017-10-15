@@ -33,7 +33,20 @@ This algorithm detects the following types of lines on the road.
 ![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_ROI4.png)
 
 ## 5.Hough Transform
- In this stage we find the hough transform for all the points on the lanes . The output of the hough transform are then 
+ In this stage we find the hough transform for all the points on the collection of lines.
+ These lines are then filtered based on slope to eleminate lines with small slope.
+ Now we segregate this filtered lines into left and right lines based on the slope(Negative or Positive)
+ Now that we have left and right lines. we use these poits as input to the linear-regression and find the m and b(y=mx+b) for the lines representing left and right lines.once we have the line equations for the left and right lanes, we also know the range cut off limit for the Y co-ordinates(from bottom of the screen to ROI- coordinate) using this values we find the x co-odrinates(lx1,lx2,rx1,rx2) to define the left and right lanes.
+ 
+ #ROI Y coordinates Limits
+    y1 = img.shape[0]
+    y2 = 320
+    
+    # (lx1,y1)----Left Line----(lx2,y2)
+    # (rx1,y1)---Right Line----(rx2,y2)
+    
+    
+ . The output of the hough transform are then 
  super imposed on to the lines.
 ### Output:
 ![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_houg_lines5.png)
@@ -43,6 +56,10 @@ This algorithm detects the following types of lines on the road.
  image.
 ### Output:
 ![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_Weighted6.png)
+
+Shortcommings and scope for improvement:
+This algorithm uses Gray sacle based edge detection Which makes it difficult to detect lanes on a beaten-up road surface.
+This algorithm can be improved by using HSV based segmentation. The ROI based hough transfrom implmentation currently used in this algorithm can be further improved so that the lanes with curves can be better Identified. Even the drawing function currently used draws straight lines, this can be improved to be able to draw curved lines aswell.
 
 
 

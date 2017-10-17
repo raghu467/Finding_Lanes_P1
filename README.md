@@ -51,7 +51,7 @@ This algorithm detects the following types of lines on the road.
 ### Output:
 ![alt tag](https://github.com/raghu467/Finding_Lanes_P1/blob/master/Write_up_attachments/image_houg_lines5.png)
 
-## 6.Hough Transform
+## 6.Adding the weighted images
  During this stage we Add the input RGB image with the output of stage 5 to get the redlines super imposed on the Actual lanes in the 
  image.
 ### Output:
